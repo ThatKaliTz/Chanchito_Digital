@@ -114,30 +114,29 @@ fun TitleAndInfo(modifier: Modifier) {
         )
     Spacer(modifier = Modifier.height(15.dp))
     // Instrucciones
-    MyText(
+    Text(
         "Seleccione una opción para comenzar.",
-        LightGrey,
-        MaterialTheme.typography.bodySmall)
+        color = LightGrey,
+        fontSize = 13.sp,
+    )
 }
 
 @Composable
 fun Buttons() {
-    MyText(
+    Text(
         "Boton 1",
-        LightGrey,
-        MaterialTheme.typography.bodySmall)
+        color = LightGrey,
+        fontSize = 15.sp,
+    )
     Spacer(modifier = Modifier.height(30.dp))
-    MyText(
+    Text(
         "Boton 2",
-        LightGrey,
-        MaterialTheme.typography.bodySmall)
+        color = LightGrey,
+        fontSize = 15.sp,
+    )
 }
 
 // General Resources
-@Composable
-fun MyText(text: String, color: Color, style: TextStyle) {
-    Text(text, color = color , style = style)
-}
 
 @Composable
 fun GradientBackgroundBrush(
