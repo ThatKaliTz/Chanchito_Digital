@@ -40,7 +40,7 @@ import com.example.chanchitodigital.ui.Background
 import com.example.chanchitodigital.ui.MyButton
 
 @Composable
-fun LoginScreen() {
+fun LandingScreen() {
     val gradientColors = listOf(
         HanPurple,
         Indigo,
@@ -54,13 +54,13 @@ fun LoginScreen() {
         // Fondo de la pantalla
         Background(gradientColors = gradientColors)
         // Contenido de la pantalla
-        LoginContent()
+        LandingContent()
     }
 }
 
 
 @Composable
-fun LoginContent(modifier: Modifier = Modifier) {
+fun LandingContent(modifier: Modifier = Modifier) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
@@ -98,11 +98,9 @@ fun LoginContent(modifier: Modifier = Modifier) {
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    LoginTitle(Modifier)
+                    LandingTitle(Modifier)
                     Spacer(modifier = Modifier.height(45.dp))
-                    LoginInputs()
-                    Spacer(modifier = Modifier.height(35.dp))
-                    LoginButtons()
+                    LandingButtons()
                 }
             }
         }
@@ -113,10 +111,10 @@ fun LoginContent(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun LoginTitle(modifier: Modifier) {
+fun LandingTitle(modifier: Modifier) {
     // Titulo
     Text(
-        "Iniciar sesión",
+        "Bienvenido a Chanchito Digital",
         color = Black,
         fontSize = 34.sp,
         textAlign = TextAlign.Center,
@@ -126,10 +124,10 @@ fun LoginTitle(modifier: Modifier) {
         modifier = modifier
             .padding(start = 60.dp, end = 60.dp)
     )
-    Spacer(modifier = Modifier.height(1.dp))
+    Spacer(modifier = Modifier.height(15.dp))
     // Instrucciones
     Text(
-        "Ingresa a tu cuenta para continuar.",
+        "Seleccione una opción para comenzar.",
         color = Grey,
         fontSize = 13.sp,
         fontFamily = dmSansFontFamily,
@@ -140,34 +138,30 @@ fun LoginTitle(modifier: Modifier) {
 }
 
 @Composable
-fun LoginButtons() {
+fun LandingButtons() {
     MyButton(
         text = "Iniciar sesión",
         modifier = Modifier
             .height(55.dp)
             .fillMaxWidth()
     )
-}
-
-@Composable
-fun LoginInputs() {
-    MyTextInput(
-        label = "EMAIL", trailing = "",
-        modifier = Modifier.fillMaxWidth()
-    )
-    Spacer(modifier = Modifier.height(15.dp))
-    MyTextInput(
-        label = "CONTRASEÑA", trailing = "",
-        modifier = Modifier.fillMaxWidth()
+    Spacer(modifier = Modifier.height(20.dp))
+    MyButton(
+        text = "Registrarse",
+        modifier = Modifier
+            .height(55.dp)
+            .fillMaxWidth()
     )
 
 }
+
+
 
 // General Resources
 
 
 @Preview(showBackground = true)
 @Composable
-fun LoginContentPreview() {
-    LoginScreen()
+fun LandingContentPreview() {
+    LandingScreen()
 }

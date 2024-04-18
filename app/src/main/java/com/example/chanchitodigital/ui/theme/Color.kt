@@ -15,6 +15,7 @@ val DarkGrey = Color(0xFF4D4C4C)
 // Gradient
 val HanPurple = Color(0xFF5E17EB)
 val Indigo = Color(0xFF7612EF)
+val Purple = Color(0xFF5E17EB)
 val ElectricViolet = Color(0xFF870EF2)
 val VividViolet = Color(0xFF9b0af6)
 val Orchid = Color(0xFFCC00FF)
