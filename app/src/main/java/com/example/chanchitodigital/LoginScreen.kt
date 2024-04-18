@@ -6,47 +6,40 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.chanchitodigital.ui.theme.Black
 import com.example.chanchitodigital.ui.theme.ElectricViolet
+import com.example.chanchitodigital.ui.theme.Grey
 import com.example.chanchitodigital.ui.theme.HanPurple
 import com.example.chanchitodigital.ui.theme.Indigo
 import com.example.chanchitodigital.ui.theme.LightGrey
-import com.example.chanchitodigital.ui.theme.Orchid
 import com.example.chanchitodigital.ui.theme.VividViolet
 import com.example.chanchitodigital.ui.theme.White
 import com.example.chanchitodigital.ui.theme.aileronFontFamily
 import com.example.chanchitodigital.ui.theme.dmSansFontFamily
+import com.example.chanchitodigital.ui.MyTextInput
+import com.example.chanchitodigital.ui.GradientBackgroundBrush
+
 
 @Composable
 fun LoginScreen() {
@@ -125,7 +118,7 @@ fun Content(modifier: Modifier = Modifier) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     TitleAndInfo(Modifier)
-                    Spacer(modifier = Modifier.height(125.dp))
+                    Spacer(modifier = Modifier.height(45.dp))
                     Buttons()
                 }
             }
@@ -154,7 +147,7 @@ fun TitleAndInfo(modifier: Modifier) {
     // Instrucciones
     Text(
         "Seleccione una opción para comenzar.",
-        color = LightGrey,
+        color = Grey,
         fontSize = 13.sp,
         fontFamily = dmSansFontFamily,
         fontWeight = FontWeight.Normal,
@@ -165,11 +158,11 @@ fun TitleAndInfo(modifier: Modifier) {
 
 @Composable
 fun Buttons() {
-    Text(
-        "Boton 1",
-        color = LightGrey,
-        fontSize = 15.sp,
-    )
+   MyTextInput(
+       label = "Email",
+       trailing = "",
+       modifier = Modifier.fillMaxWidth()
+   )
     Spacer(modifier = Modifier.height(30.dp))
     Text(
         "Boton 2",
@@ -178,24 +171,13 @@ fun Buttons() {
     )
 }
 
-// General Resources
-
 @Composable
-fun GradientBackgroundBrush(
-    isVerticalGradient: Boolean,
-    colors: List<Color> ): Brush {
-    val endOffset = if (isVerticalGradient) {
-        Offset(0.0f, Float.POSITIVE_INFINITY)
-    } else {
-        Offset(Float.POSITIVE_INFINITY, 0.0f)
-    }
-
-    return Brush.linearGradient(
-        colors = colors,
-        start = Offset.Zero,
-        end = endOffset
-    )
+fun MyButton() {
+    
 }
+
+
+// General Resources
 
 
 @Preview(showBackground = true)
