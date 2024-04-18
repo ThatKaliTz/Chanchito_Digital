@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,6 +45,8 @@ import com.example.chanchitodigital.ui.theme.LightGrey
 import com.example.chanchitodigital.ui.theme.Orchid
 import com.example.chanchitodigital.ui.theme.VividViolet
 import com.example.chanchitodigital.ui.theme.White
+import com.example.chanchitodigital.ui.theme.aileronFontFamily
+import com.example.chanchitodigital.ui.theme.dmSansFontFamily
 
 @Composable
 fun LoginScreen() {
@@ -106,7 +111,11 @@ fun Content(modifier: Modifier = Modifier) {
             Card(
                 modifier = modifier
                     .fillMaxSize(),
-                shape = RoundedCornerShape(topEndPercent = 30)
+                shape = RoundedCornerShape(topEndPercent = 30),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White, //Card background color
+                    contentColor = Color.Black  //Card content color,e.g.text
+                )
             ) {
                 // Contenido
                 Column(
@@ -133,10 +142,13 @@ fun TitleAndInfo(modifier: Modifier) {
     Text(
         "Bienvenido a Chanchito Digital",
         color = Black,
-        fontSize = 30.sp,
+        fontSize = 34.sp,
         textAlign = TextAlign.Center,
+        lineHeight = 32.sp,
+        fontFamily = aileronFontFamily,
+        fontWeight = FontWeight.Bold,
         modifier = modifier
-            .padding(start = 40.dp, end = 40.dp)
+            .padding(start = 60.dp, end = 60.dp)
         )
     Spacer(modifier = Modifier.height(15.dp))
     // Instrucciones
@@ -144,6 +156,10 @@ fun TitleAndInfo(modifier: Modifier) {
         "Seleccione una opción para comenzar.",
         color = LightGrey,
         fontSize = 13.sp,
+        fontFamily = dmSansFontFamily,
+        fontWeight = FontWeight.Normal,
+        modifier = modifier
+            .padding(top = 12.dp)
     )
 }
 
