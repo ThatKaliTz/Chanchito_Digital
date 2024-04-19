@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.chanchitodigital.LandingScreen
 import com.example.chanchitodigital.LoginScreen
 import com.example.chanchitodigital.MainScreen
+import com.example.chanchitodigital.SignupScreen
 import com.example.chanchitodigital.SplashScreen
 
 @Composable
@@ -21,6 +22,12 @@ fun AppNavigation () {
         }
         composable(AppScreens.LandingScreen.route) {
             LandingScreen()
+        }
+        composable(AppScreens.LoginScreen.route) {
+            LoginScreen()
+        }
+        composable(AppScreens.SignupScreen.route) {
+            SignupScreen()
         }
         composable(AppScreens.MainScreen.route) {
             MainScreen(navController)
