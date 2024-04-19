@@ -1,5 +1,6 @@
 package com.example.chanchitodigital
 
+import MyDateInput
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +17,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -130,6 +135,7 @@ fun SignupButtons() {
 @Composable
 fun SignupInputs() {
     val spacerSize = 25.dp
+    var selectedDate by remember { mutableStateOf("") }
     MyTextInput(
         label = "NOMBRE DE USUARIO", trailing = "",
         modifier = Modifier.fillMaxWidth()
@@ -144,7 +150,18 @@ fun SignupInputs() {
         label = "CONTRASEÑA", trailing = "",
         modifier = Modifier.fillMaxWidth()
     )
+    Spacer(modifier = Modifier.height(spacerSize))
 
+    MyDateInput(
+        label = "FECHA DE NACIMIENTO",
+        trailing = "Seleccionar",
+        modifier = Modifier.fillMaxWidth(),
+        onDateSelected = { date ->
+            selectedDate = date
+            // Aquí puedes realizar cualquier acción adicional con la fecha seleccionada
+        }
+    )
+    Spacer(modifier = Modifier.height(spacerSize))
 
 }
 
