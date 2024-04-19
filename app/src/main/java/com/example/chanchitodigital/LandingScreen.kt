@@ -160,7 +160,7 @@ fun LandingButtons() {
 // General Resources
 
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true)
 @Composable
 fun LandingContentPreview() {
     LandingScreen()

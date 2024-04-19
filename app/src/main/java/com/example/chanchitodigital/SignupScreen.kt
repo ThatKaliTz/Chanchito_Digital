@@ -136,20 +136,44 @@ fun SignupButtons() {
 fun SignupInputs() {
     val spacerSize = 25.dp
     var selectedDate by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     MyTextInput(
-        label = "NOMBRE DE USUARIO", trailing = "",
-        modifier = Modifier.fillMaxWidth()
+        label = "NOMBRE DE USUARIO",
+        trailing = "",
+        text = username, // Aquí pasamos el valor de username al componente MyTextInput
+        modifier = Modifier.fillMaxWidth(),
+        onTextChanged = { newText ->
+            username = newText
+        }
     )
+
     Spacer(modifier = Modifier.height(spacerSize))
+
     MyTextInput(
-        label = "EMAIL", trailing = "",
-        modifier = Modifier.fillMaxWidth()
+        label = "EMAIL",
+        trailing = "",
+        text = email, // Aquí pasamos el valor de username al componente MyTextInput
+        modifier = Modifier.fillMaxWidth(),
+        onTextChanged = { newText ->
+            email = newText
+        }
     )
+
     Spacer(modifier = Modifier.height(spacerSize))
+
     MyTextInput(
-        label = "CONTRASEÑA", trailing = "",
-        modifier = Modifier.fillMaxWidth()
+        label = "CONTRASEÑA",
+        trailing = "",
+        text = password, // Aquí pasamos el valor de username al componente MyTextInput
+        modifier = Modifier.fillMaxWidth(),
+        onTextChanged = { newText ->
+            password = newText
+        }
     )
+
     Spacer(modifier = Modifier.height(spacerSize))
 
     MyDateInput(

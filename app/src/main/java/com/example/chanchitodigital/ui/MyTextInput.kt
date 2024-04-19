@@ -22,16 +22,17 @@ import com.example.chanchitodigital.ui.theme.textFieldContainer
 import com.example.chanchitodigital.ui.theme.unfocusedTextFieldText
 
 @Composable
-fun MyTextInput(modifier: Modifier = Modifier,
-                label: String,
-                trailing: String
+fun MyTextInput(
+    modifier: Modifier = Modifier,
+    label: String,
+    trailing: String,
+    text: String,
+    onTextChanged: (String) -> Unit
 ) {
-
-
     Column(
         verticalArrangement = Arrangement.Top,
         modifier = modifier
-        ) {
+    ) {
         Text(
             text = label,
             fontFamily = dmSansFontFamily,
@@ -42,8 +43,8 @@ fun MyTextInput(modifier: Modifier = Modifier,
 
         TextField(
             modifier = modifier,
-            value = "",
-            onValueChange = {},
+            value = text,
+            onValueChange = onTextChanged,
             placeholder = {
                 Text(
                     text = label,
@@ -62,16 +63,17 @@ fun MyTextInput(modifier: Modifier = Modifier,
             ),
             shape = RoundedCornerShape(50),
             trailingIcon = {
-                TextButton(onClick = { /*TODO*/ }) {
-                    Text(
-                        text = trailing,
-                        fontFamily = dmSansFontFamily,
-                        fontSize = 15.sp,
-                        color = DarkGrey
-                    )
+                if (trailing.isNotEmpty()) {
+                    TextButton(onClick = { /* TODO */ }) {
+                        Text(
+                            text = trailing,
+                            fontFamily = dmSansFontFamily,
+                            fontSize = 15.sp,
+                            color = DarkGrey
+                        )
+                    }
                 }
             }
         )
     }
 }
-
