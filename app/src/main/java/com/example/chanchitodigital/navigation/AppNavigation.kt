@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.chanchitodigital.AddIncomeScreen
 import com.example.chanchitodigital.LandingScreen
 import com.example.chanchitodigital.LoginScreen
 import com.example.chanchitodigital.MainScreen
@@ -31,6 +32,9 @@ fun AppNavigation () {
         }
         composable(AppScreens.MainScreen.route) {
             MainScreen(navController)
+        }
+        composable(AppScreens.AddIncomeScreen.route) {
+            AddIncomeScreen()
         }
     }
 }
