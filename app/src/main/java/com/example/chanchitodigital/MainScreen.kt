@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -30,22 +31,42 @@ import java.util.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.sp
+import com.example.chanchitodigital.ui.theme.focusedTextFieldText
+import com.example.chanchitodigital.ui.theme.textFieldContainer
+import com.example.chanchitodigital.ui.theme.unfocusedTextFieldText
 
 
 @Composable
 fun MainScreen(navController: NavController) {
-    val context = LocalContext.current
+    var selectedDate by remember { mutableStateOf("") }
 
-    // Llamada a MyTextInput
-    MyDateInput(
-        modifier = Modifier.fillMaxWidth(),
-        label = "Fecha de nacimiento",
-        trailing = "Seleccionar fecha",
-        onDateSelected = { selectedDate ->
-            // Manejo de la fecha seleccionada aquí
-            Toast.makeText(context, "Fecha seleccionada: $selectedDate", Toast.LENGTH_SHORT).show()
-        }
-    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Selecciona una fecha:",
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        MyDateInput(
+            label = "Fecha de nacimiento",
+            trailing = "Seleccionar",
+            onDateSelected = { date ->
+                selectedDate = date
+                // Aquí puedes realizar cualquier acción adicional con la fecha seleccionada
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Fecha seleccionada: $selectedDate",
+        )
+    }
 }
 
 
@@ -56,7 +77,8 @@ fun MyDateInput(
     trailing: String,
     onDateSelected: (String) -> Unit // Callback para manejar la fecha seleccionada
 ) {
-    var date by remember { mutableStateOf("") }
+    var selectedDate by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -70,55 +92,63 @@ fun MyDateInput(
             modifier = Modifier.padding(start = 10.dp, bottom = 5.dp)
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            TextField(
-                modifier = Modifier.weight(1f),
-                value = date,
-                onValueChange = { date = it },
-                placeholder = {
+        TextField(
+            modifier = modifier,
+            value = selectedDate,
+            onValueChange = { selectedDate = it },
+            placeholder = {
+                Text(
+                    text = label,
+                    fontFamily = dmSansFontFamily,
+                    fontSize = 15.sp,
+                    color = DarkGrey.copy(alpha = 0.5f)
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.unfocusedTextFieldText,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.focusedTextFieldText,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedContainerColor = MaterialTheme.colorScheme.textFieldContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.textFieldContainer
+            ),
+            shape = RoundedCornerShape(50),
+            trailingIcon = {
+                TextButton(onClick = {
+                    val calendar = Calendar.getInstance()
+                    val year = calendar.get(Calendar.YEAR)
+                    val month = calendar.get(Calendar.MONTH)
+                    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                    val datePickerDialog = DatePickerDialog(
+                        context,
+                        { _, year, month, dayOfMonth ->
+                            val date = "$dayOfMonth/$month/$year"
+                            selectedDate = date
+                            onDateSelected(date)
+                        },
+                        year, month, day
+                    )
+                    datePickerDialog.show()
+                }) {
                     Text(
-                        text = label,
+                        text = trailing,
                         fontFamily = dmSansFontFamily,
                         fontSize = 15.sp,
-                        color = DarkGrey.copy(alpha = 0.5f)
+                        color = DarkGrey
                     )
-                },
-                colors = TextFieldDefaults.colors(
-                    unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    cursorColor = MaterialTheme.colorScheme.onSurface,
-                    focusedTextColor = Color.Black
-                ),
-                shape = RoundedCornerShape(50)
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Button(
-                onClick = { /* Open DatePicker */ },
-                modifier = Modifier.size(120.dp, 48.dp)
-            ) {
-                Text(text = "Open Date Picker")
+                }
             }
-        }
+        )
     }
-
-    MyDatePicker(
-        onDateSelected = {
-            date = it
-            onDateSelected(it)
-        }
-    )
 }
 
 @Composable
 fun MyDatePicker(
-    onDateSelected: (String) -> Unit // Callback para manejar la fecha seleccionada
-) {
+    onDateSelected: (String) -> Unit, // Callback para manejar la fecha seleccionada
+    showDialog: Boolean // Parámetro booleano para determinar si mostrar el diálogo
+): String { // Devuelve la fecha seleccionada como String
+
     val context = LocalContext.current
 
     val year: Int
@@ -140,19 +170,10 @@ fun MyDatePicker(
         }, year, month, day
     )
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Selected Date: ${date.value}")
-        Spacer(modifier = Modifier.size(16.dp))
-        Button(onClick = {
-            datePickerDialog.show()
-        }) {
-            Text(text = "Open Date Picker")
-        }
+    if (showDialog) {
+        datePickerDialog.show()
     }
-}
 
+    return date.value
+}
 
