@@ -94,7 +94,7 @@ fun SignupContent(modifier: Modifier = Modifier) {
                     SignupTitle(Modifier)
                     Spacer(modifier = Modifier.height(45.dp))
                     SignupInputs()
-                    Spacer(modifier = Modifier.height(35.dp))
+                    Spacer(modifier = Modifier.height(52.dp))
                     SignupButtons()
                 }
             }
@@ -161,7 +161,6 @@ fun SignupInputs() {
             // Aquí puedes realizar cualquier acción adicional con la fecha seleccionada
         }
     )
-    Spacer(modifier = Modifier.height(spacerSize))
 
 }
 

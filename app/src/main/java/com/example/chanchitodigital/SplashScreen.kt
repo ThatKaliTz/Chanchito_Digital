@@ -25,7 +25,7 @@ fun SplashScreen(navController: NavController) {
         // Evitando que el usuario pueda volver a esta pantalla
         navController.popBackStack()
         // Redirigiendo a la pantalla principal
-        navController.navigate(AppScreens.MainScreen.route)
+        navController.navigate(AppScreens.SignupScreen.route)
     }
     Splash()
 }
