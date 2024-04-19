@@ -24,6 +24,19 @@ import com.example.chanchitodigital.ui.theme.focusedTextFieldText
 import com.example.chanchitodigital.ui.theme.textFieldContainer
 import com.example.chanchitodigital.ui.theme.unfocusedTextFieldText
 
+
+
+@Composable
+fun Label(text : String) {
+    Text(
+        text = text,
+        fontSize = 15.sp,
+        fontFamily = dmSansFontFamily,
+        color = Color.DarkGray,
+        modifier = Modifier.padding(start = 10.dp, bottom = 5.dp)
+    )
+}
+
 @Composable
 fun MyTextInput(
     modifier: Modifier = Modifier,
@@ -36,14 +49,7 @@ fun MyTextInput(
         verticalArrangement = Arrangement.Top,
         modifier = modifier
     ) {
-        Text(
-            text = label,
-            fontFamily = dmSansFontFamily,
-            fontSize = 15.sp,
-            color = DarkGrey,
-            modifier = Modifier.padding(start = 10.dp, bottom = 5.dp)
-        )
-
+        Label(text = label)
         TextField(
             modifier = modifier,
             value = text,
@@ -93,12 +99,7 @@ fun MyNumberInput(
         verticalArrangement = Arrangement.Top,
         modifier = modifier
     ) {
-        Text(
-            text = label,
-            fontSize = 15.sp,
-            color = Color.DarkGray,
-            modifier = Modifier.padding(start = 10.dp, bottom = 5.dp)
-        )
+        Label(text = label)
 
         TextField(
             modifier = modifier,
@@ -150,12 +151,8 @@ fun MyDescriptionInput(
         verticalArrangement = Arrangement.Top,
         modifier = modifier
     ) {
-        Text(
-            text = label,
-            fontSize = 15.sp,
-            color = Color.DarkGray,
-            modifier = Modifier.padding(start = 10.dp, bottom = 5.dp)
-        )
+        Label(text = label)
+
 
         TextField(
             modifier = modifier,

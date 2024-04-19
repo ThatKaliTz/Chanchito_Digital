@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.chanchitodigital.ui.Label
 import com.example.chanchitodigital.ui.MyButton
 import com.example.chanchitodigital.ui.MyCombobox
 import com.example.chanchitodigital.ui.MyDescriptionInput
@@ -37,39 +40,62 @@ import com.example.chanchitodigital.ui.MyTitle
 import com.example.chanchitodigital.ui.theme.Black
 import com.example.chanchitodigital.ui.theme.LightGrey
 import com.example.chanchitodigital.ui.theme.aileronFontFamily
+import com.example.chanchitodigital.ui.theme.dmSansFontFamily
+import com.example.chanchitodigital.ui.tutorial.ui.MyComponent
+import com.example.chanchitodigital.ui.tutorial.ui.MyData
 
 
 @Composable
-fun AddIncomeScreen() {
+fun ViewPaymentScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(LightGrey)
     ) {
-        AddIncomeContent()
+        ViewPaymentContent(paymentInfo = paymentList)
     }
 }
 
+
+data class PaymentData(val title: String, val description: String)
+private val paymentList : List<PaymentData> = listOf(
+    PaymentData("CATEGORÍA", "Categoría 3"),
+    PaymentData("DESCRIPCIÓN", "Soy una descripción " +
+            "Soy una descripción Soy una descripción Soy una descripción"),
+    PaymentData("FECHA DE EXPEDICIÓN", "00/00/0000"),
+)
+
 @Composable
-fun AddIncomeContent(modifier: Modifier = Modifier) {
-        Column(
-            modifier.fillMaxWidth()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+fun ViewPaymentContent(modifier: Modifier = Modifier,
+                       paymentInfo : List<PaymentData>) {
+
+    LazyColumn(
+        modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+
         ) {
-            MyTitle(text = "Agregar ingreso")
+        item {
+            MyTitle(text = "Detalles de pago")
             Spacer(modifier = Modifier.height(50.dp))
-            AmountInput()
-            Spacer(modifier = Modifier.height(50.dp))
-            AddIncomeInput()
-            Spacer(modifier = Modifier.height(50.dp))
-            
         }
 
+        item {
+            ViewPaymentAmount()
+            Spacer(modifier = Modifier.height(50.dp))
+        }
+
+
+        item {
+            ViewPaymentInfo(paymentInfo)
+            Spacer(modifier = Modifier.height(50.dp))
+        }
+
+    }
+
 }
 
 @Composable
-fun AmountInput() {
+fun ViewPaymentAmount() {
     Box(
         modifier = Modifier
             .shadow(
@@ -84,21 +110,35 @@ fun AmountInput() {
         ,
         contentAlignment = Alignment.Center
     ) {
-        var amount by remember { mutableStateOf("") }
-        MyNumberInput(
-            label = "MONTO",
-            trailing = "",
-            text = amount, // Aquí pasamos el valor de username al componente MyTextInput
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            onTextChanged = { newText ->
-                amount = newText
+            horizontalAlignment = Alignment.Start
+        ) {
+            // Categoría
+            Label(text = "MONTO")
+
+            // Precio
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "$0.00",
+                    color = Black,
+                    fontSize = 45.sp,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 32.sp,
+                    fontFamily = aileronFontFamily,
+                    fontWeight = FontWeight.Bold,
+                )
             }
-        )
+        }
+
     }
 }
 
 @Composable
-fun AddIncomeInput() {
+fun ViewPaymentInfo(paymentInfo : List<PaymentData>) {
     Box(
         modifier = Modifier
             .shadow(
@@ -113,62 +153,39 @@ fun AddIncomeInput() {
         ,
         contentAlignment = Alignment.Center
     ) {
-       Column (
-           modifier = Modifier.fillMaxWidth(),
-           horizontalAlignment = Alignment.CenterHorizontally
-       ){
-           var description by remember { mutableStateOf("") }
-           var selectedDate by remember { mutableStateOf("") }
-           val spacerSize = 25.dp
-           val itemOptions = arrayOf(
-               "Categoria 1", "Categoria 2", "Categoria 3", "Categoria 4", "Categoria 5")
+        Column (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ){
+            val spacerSize = 25.dp
+           // Loop
+            for (paymentData in paymentInfo) {
 
-           MyCombobox(
-               label = "CATEGORIA",
-               itemOptions = itemOptions
-           )
+                Label(text = paymentData.title)
 
-           Spacer(modifier = Modifier.height(spacerSize))
+                Text(
+                    text = paymentData.description,
+                    fontSize = 15.sp,
+                    fontFamily = dmSansFontFamily,
+                    color = Color.Black,
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        top = 5.dp,
+                        bottom = 5.dp,
+                        end = 15.dp
+                    )
+                )
+                Spacer(modifier = Modifier.height(spacerSize))
+            }
 
-           MyDescriptionInput(
-               label = "DESCRIPCIÓN",
-               trailing = "",
-               text = description, // Aquí pasamos el valor de username al componente MyTextInput
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .height(125.dp),
-               onTextChanged = { newText ->
-                   description = newText
-               }
-           )
+            Spacer(modifier = Modifier.height(80.dp))
 
-           Spacer(modifier = Modifier.height(spacerSize))
-
-           MyDateInput(
-               label = "FECHA DE EXPEDICION",
-               trailing = "Seleccionar",
-               modifier = Modifier.fillMaxWidth(),
-               onDateSelected = { date ->
-                   selectedDate = date
-                   // Aquí puedes realizar cualquier acción adicional con la fecha seleccionada
-               }
-           )
-
-           Spacer(modifier = Modifier.height(50.dp))
-
-           MyButton(
-               text = "Aceptar",
-               modifier = Modifier
-                   .height(55.dp)
-                   .fillMaxWidth()
-           )
-
-       }
+        }
     }
 }
 
 @Preview(showSystemUi = true)
 @Composable
-fun ShowAddIncome() {
-    AddIncomeScreen()
+fun ShowViewPayment() {
+    ViewPaymentScreen()
 }
